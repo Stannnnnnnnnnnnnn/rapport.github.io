@@ -30,18 +30,31 @@
         }
         
         .controls button {
-            background-color: #4CAF50;
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-right: 10px;
+            margin-right: 15px;
             font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
         }
         
-        .controls button:hover {
-            background-color: #45a049;
+        .btn-reset {
+            background-color: #dc3545;
+        }
+        
+        .btn-reset:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-send {
+            background-color: #28a745;
+        }
+        
+        .btn-send:hover {
+            background-color: #218838;
         }
         
         .document {
@@ -219,6 +232,26 @@
             margin-bottom: 15px;
         }
         
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
         @media print {
             .controls {
                 display: none;
@@ -231,14 +264,20 @@
     </style>
 </head>
 <body>
+    <div class="success-message" id="success-msg">
+        ✅ <strong>Rapport envoyé avec succès !</strong> Votre document a été transmis au commandement.
+    </div>
+    
+    <div class="error-message" id="error-msg">
+        ❌ <strong>Erreur lors de l'envoi.</strong> Veuillez vérifier les champs obligatoires.
+    </div>
+
     <div class="controls">
-        <h3>🎛️ CONTRÔLES D'ÉDITION</h3>
-        <button onclick="window.print()">🖨️ Imprimer/PDF</button>
-        <button onclick="saveDocument()">💾 Sauvegarder</button>
-        <button onclick="resetDocument()">🔄 Reset</button>
-        <button onclick="fillExample()">📝 Exemple</button>
+        <h3>🎛️ CONTRÔLES</h3>
+        <button class="btn-reset" onclick="resetDocument()">🔄 Reset</button>
+        <button class="btn-send" onclick="sendDocument()">📤 Envoyer le Rapport</button>
         <br><br>
-        <small>💡 <strong>Instructions:</strong> Cliquez sur les zones jaunes pour éditer.</small>
+        <small>💡 <strong>Instructions:</strong> Remplissez les zones jaunes puis envoyez le rapport.</small>
     </div>
 
     <div class="document" id="casualties">
@@ -369,34 +408,8 @@ Average evacuation time: 35 minutes</textarea>
             }
         }
 
-        function saveDocument() {
-            const docTitle = "Casualty_Report";
-            const fullHTML = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>${docTitle} - 88th Regiment</title>
-    <style>
-        ${document.querySelector('style').textContent}
-        .controls { display: none; }
-    </style>
-</head>
-<body>
-    ${document.querySelector('.document').outerHTML}
-</body>
-</html>`;
-            
-            const blob = new Blob([fullHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${docTitle}_${new Date().toISOString().slice(0,10)}.html`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
         function resetDocument() {
-            if (confirm('Êtes-vous sûr de vouloir effacer tous les champs ?')) {
+            if (confirm('⚠️ Êtes-vous sûr de vouloir effacer tous les champs ?')) {
                 document.querySelectorAll('.editable, .form-field').forEach(field => {
                     if (field.tagName === 'TEXTAREA') {
                         field.value = field.placeholder || '';
@@ -409,45 +422,118 @@ Average evacuation time: 35 minutes</textarea>
                 document.querySelectorAll('.checkbox').forEach(checkbox => {
                     checkbox.textContent = '☐';
                 });
+                
+                // Reset to default values
+                document.getElementById('cas-period').textContent = '0001 hrs 28 July - 2359 hrs 28 July 1944';
+                document.getElementById('cas-unit').textContent = '88th Regiment';
+                document.getElementById('cas-location').textContent = 'Sainte-Mère-Église Sector';
+                document.getElementById('cas-total').textContent = '127';
+                
+                hideMessages();
             }
         }
 
-        function fillExample() {
-            document.getElementById('cas-period').textContent = '0001 hrs 15 Aug - 2359 hrs 15 Aug 1944';
-            document.getElementById('cas-location').textContent = 'Falaise Pocket Operations';
-            document.getElementById('cas-total').textContent = '289';
+        function sendDocument() {
+            // Vérification des champs obligatoires
+            const requiredFields = ['cas-period', 'cas-unit', 'cas-location', 'cas-total'];
+            let isValid = true;
             
-            // Remplir les statistiques
-            document.getElementById('kia-us').textContent = '18';
-            document.getElementById('kia-brit').textContent = '5';
-            document.getElementById('kia-fr').textContent = '2';
-            document.getElementById('kia-ger').textContent = '12';
-            document.getElementById('kia-civ').textContent = '6';
-            document.getElementById('kia-total').textContent = '43';
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.textContent.trim()) {
+                    isValid = false;
+                    field.style.backgroundColor = '#ffcccc';
+                    setTimeout(() => {
+                        field.style.backgroundColor = '#ffffcc';
+                    }, 2000);
+                }
+            });
             
-            document.getElementById('wia-us').textContent = '89';
-            document.getElementById('wia-brit').textContent = '23';
-            document.getElementById('wia-fr').textContent = '4';
-            document.getElementById('wia-ger').textContent = '15';
-            document.getElementById('wia-civ').textContent = '11';
-            document.getElementById('wia-total').textContent = '142';
+            if (!isValid) {
+                showError('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
             
-            document.getElementById('mia-us').textContent = '6';
-            document.getElementById('mia-brit').textContent = '1';
-            document.getElementById('mia-fr').textContent = '0';
-            document.getElementById('mia-ger').textContent = '3';
-            document.getElementById('mia-civ').textContent = '2';
-            document.getElementById('mia-total').textContent = '12';
+            // Collecte des données
+            const data = collectAllData();
             
-            document.getElementById('cas-analysis').value = 'Heavy fighting in Falaise Pocket resulted in increased casualty rates:\n• Artillery bombardment: 55%\n• Tank/AT gun fire: 25%\n• Small arms: 15%\n• Mines/booby traps: 5%\n\nSurvivability rate: 78.6% (decreased due to intensity)\nAverage evacuation time: 42 minutes (increased due to enemy action)';
-            
-            document.getElementById('cas-critical').value = '• Major Thompson - Severe abdominal wounds, emergency surgery successful\n• Sgt. Roberts - Multiple amputations, stable condition\n• Cpl. Davis - Severe burns over 40% of body, evacuated to UK\n• Pvt. Miller - Head trauma with skull fracture, conscious but critical\n• Lt. Wilson - Chest wounds with collapsed lung, recovering well';
-            
-            // Cocher quelques cases
-            const checkboxes = document.querySelectorAll('.checkbox');
-            if (checkboxes[0]) checkboxes[0].textContent = '✓';
-            if (checkboxes[1]) checkboxes[1].textContent = '✓';
-            if (checkboxes[3]) checkboxes[3].textContent = '✓';
+            // Simulation d'envoi (tu peux remplacer par une vraie API)
+            setTimeout(() => {
+                console.log('Données envoyées:', data);
+                showSuccess();
+                
+                // Optionnel : reset après envoi
+                // resetDocument();
+            }, 1000);
+        }
+
+        function collectAllData() {
+            return {
+                metadata: {
+                    period: document.getElementById('cas-period').textContent,
+                    unit: document.getElementById('cas-unit').textContent,
+                    location: document.getElementById('cas-location').textContent,
+                    total: document.getElementById('cas-total').textContent,
+                    timestamp: new Date().toISOString()
+                },
+                casualties: {
+                    kia: {
+                        us: document.getElementById('kia-us').textContent,
+                        british: document.getElementById('kia-brit').textContent,
+                        french: document.getElementById('kia-fr').textContent,
+                        enemy: document.getElementById('kia-ger').textContent,
+                        civilian: document.getElementById('kia-civ').textContent,
+                        total: document.getElementById('kia-total').textContent
+                    },
+                    wia: {
+                        us: document.getElementById('wia-us').textContent,
+                        british: document.getElementById('wia-brit').textContent,
+                        french: document.getElementById('wia-fr').textContent,
+                        enemy: document.getElementById('wia-ger').textContent,
+                        civilian: document.getElementById('wia-civ').textContent,
+                        total: document.getElementById('wia-total').textContent
+                    },
+                    mia: {
+                        us: document.getElementById('mia-us').textContent,
+                        british: document.getElementById('mia-brit').textContent,
+                        french: document.getElementById('mia-fr').textContent,
+                        enemy: document.getElementById('mia-ger').textContent,
+                        civilian: document.getElementById('mia-civ').textContent,
+                        total: document.getElementById('mia-total').textContent
+                    }
+                },
+                analysis: document.getElementById('cas-analysis').value,
+                critical: document.getElementById('cas-critical').value,
+                evacuation: {
+                    field_hospital: document.querySelector('.checkbox').textContent,
+                    evacuation_hospital: document.querySelectorAll('.checkbox')[1].textContent,
+                    general_hospital: document.querySelectorAll('.checkbox')[2].textContent,
+                    returned_duty: document.querySelectorAll('.checkbox')[3].textContent
+                }
+            };
+        }
+
+        function showSuccess() {
+            hideMessages();
+            document.getElementById('success-msg').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('success-msg').style.display = 'none';
+            }, 5000);
+        }
+
+        function showError(message) {
+            hideMessages();
+            const errorDiv = document.getElementById('error-msg');
+            errorDiv.innerHTML = `❌ <strong>Erreur:</strong> ${message}`;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function hideMessages() {
+            document.getElementById('success-msg').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'none';
         }
 
         // Navigation par Tab
