@@ -22,6 +22,7 @@
             padding: 15px;
             border-radius: 5px;
             border: 2px solid #666;
+            text-align: center;
         }
         
         .controls h3 {
@@ -269,14 +270,14 @@
                 font-size: 11px;
                 line-height: 1.2;
                 margin: 0;
-                padding: 8px;
+                padding: 5mm;
                 -webkit-print-color-adjust: exact;
             }
             .document {
                 max-width: none !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 12px !important;
+                width: calc(100% - 10mm) !important;
+                margin: 0 auto !important;
+                padding: 8px !important;
                 box-shadow: none !important;
                 border: 2px solid #8b4513 !important;
                 page-break-inside: avoid;
@@ -294,15 +295,18 @@
             }
             .table {
                 width: 100% !important;
-                font-size: 9px !important;
-                margin: 12px 0 !important;
+                font-size: 8px !important;
+                margin: 8px 0 !important;
                 page-break-inside: avoid;
+                table-layout: fixed !important;
             }
             .table th, .table td {
-                padding: 3px !important;
+                padding: 2px !important;
                 border: 1px solid #8b4513 !important;
-                font-size: 9px !important;
+                font-size: 8px !important;
                 line-height: 1.1 !important;
+                word-wrap: break-word !important;
+                overflow: hidden !important;
             }
             .table th {
                 background-color: #f0f0f0 !important;
@@ -316,9 +320,12 @@
             }
             .signature-area {
                 page-break-before: avoid;
-                margin-top: 15px !important;
-                padding-top: 12px !important;
-                font-size: 10px !important;
+                margin-top: 12px !important;
+                padding-top: 8px !important;
+                font-size: 9px !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: flex-end !important;
             }
             textarea.editable {
                 min-height: 50px !important;
