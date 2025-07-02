@@ -399,6 +399,7 @@ Average evacuation time: 35 minutes</textarea>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         function toggleCheckbox(element) {
             if (element.textContent === '☐') {
@@ -454,16 +455,45 @@ Average evacuation time: 35 minutes</textarea>
                 return;
             }
             
-            // Collecte des données
-            const data = collectAllData();
+            // Générer et télécharger le document visuel
+            generateVisualDocument();
+        }
+
+        function generateVisualDocument() {
+            // Cacher les contrôles temporairement
+            const controls = document.querySelector('.controls');
+            const messages = document.querySelectorAll('.success-message, .error-message');
             
-            // Simulation d'envoi (tu peux remplacer par une vraie API)
+            controls.style.display = 'none';
+            messages.forEach(msg => msg.style.display = 'none');
+            
+            // Nettoyer l'apparence pour l'export
+            const editableFields = document.querySelectorAll('.editable, .form-field');
+            editableFields.forEach(field => {
+                field.style.backgroundColor = 'transparent';
+                field.style.border = 'none';
+                field.style.outline = 'none';
+                field.setAttribute('contenteditable', 'false');
+            });
+            
+            // Générer le PDF directement avec window.print()
+            const originalTitle = document.title;
+            const period = document.getElementById('cas-period').textContent.replace(/[^\w\s]/gi, '');
+            document.title = `Casualty_Report_${period.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}`;
+            
+            // Ouvrir la boîte de dialogue d'impression (l'utilisateur peut choisir "Enregistrer au format PDF")
+            window.print();
+            
+            // Restaurer l'interface après un délai
             setTimeout(() => {
-                console.log('Données envoyées:', data);
+                document.title = originalTitle;
+                controls.style.display = 'block';
+                editableFields.forEach(field => {
+                    field.style.backgroundColor = '#ffffcc';
+                    field.style.borderBottom = '1px solid #8b4513';
+                    field.setAttribute('contenteditable', 'true');
+                });
                 showSuccess();
-                
-                // Optionnel : reset après envoi
-                // resetDocument();
             }, 1000);
         }
 
