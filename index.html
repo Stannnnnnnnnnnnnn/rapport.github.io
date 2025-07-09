@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CASUALTY REPORT - 88th Regiment</title>
+    <title>RAPPORT DE VICTIMES - 88ème Régiment</title>
     <style>
         
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
@@ -22,7 +22,6 @@
             padding: 15px;
             border-radius: 5px;
             border: 2px solid #666;
-            text-align: center;
         }
         
         .controls h3 {
@@ -31,31 +30,18 @@
         }
         
         .controls button {
+            background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-right: 15px;
+            margin-right: 10px;
             font-family: inherit;
-            font-size: 14px;
-            font-weight: bold;
         }
         
-        .btn-reset {
-            background-color: #dc3545;
-        }
-        
-        .btn-reset:hover {
-            background-color: #c82333;
-        }
-        
-        .btn-send {
-            background-color: #28a745;
-        }
-        
-        .btn-send:hover {
-            background-color: #218838;
+        .controls button:hover {
+            background-color: #45a049;
         }
         
         .document {
@@ -218,7 +204,7 @@
         
         textarea.editable {
             width: 100%;
-            min-height: 120px;
+            min-height: 40px;
             resize: vertical;
             font-family: inherit;
             font-size: inherit;
@@ -233,237 +219,69 @@
             margin-bottom: 15px;
         }
         
-        .success-message {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .error-message {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
         @media print {
             .controls {
                 display: none;
             }
             .editable, .form-field {
-                background-color: transparent !important;
-                border: none !important;
-                outline: none !important;
-            }
-            .success-message, .error-message {
-                display: none !important;
-            }
-            body {
-                background-color: white !important;
-                font-size: 11px;
-                line-height: 1.2;
-                margin: 0;
-                padding: 5mm;
-                -webkit-print-color-adjust: exact;
-            }
-            .document {
-                max-width: none !important;
-                width: calc(100% - 10mm) !important;
-                margin: 0 auto !important;
-                padding: 8px !important;
-                box-shadow: none !important;
-                border: 2px solid #8b4513 !important;
-                page-break-inside: avoid;
-            }
-            .header {
-                page-break-inside: avoid;
-                margin-bottom: 12px !important;
-                padding-bottom: 10px !important;
-            }
-            .title {
-                font-size: 16px !important;
-            }
-            .subtitle {
-                font-size: 11px !important;
-            }
-            .table {
-                width: 100% !important;
-                font-size: 8px !important;
-                margin: 8px 0 !important;
-                page-break-inside: avoid;
-                table-layout: fixed !important;
-            }
-            .table th, .table td {
-                padding: 2px !important;
-                border: 1px solid #8b4513 !important;
-                font-size: 8px !important;
-                line-height: 1.1 !important;
-                word-wrap: break-word !important;
-                overflow: hidden !important;
-            }
-            .table th {
-                background-color: #f0f0f0 !important;
-                font-weight: bold !important;
-            }
-            .priority-red, .priority-yellow {
-                page-break-inside: avoid;
-                margin: 8px 0 !important;
-                padding: 6px !important;
-                font-size: 10px !important;
-            }
-            .signature-area {
-                page-break-before: avoid;
-                margin-top: 12px !important;
-                padding-top: 8px !important;
-                font-size: 9px !important;
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: flex-end !important;
-            }
-            textarea.editable {
-                min-height: 120px !important;
-                font-size: 9px !important;
-                line-height: 1.1 !important;
-                width: 100% !important;
-                border: none !important;
-                background: transparent !important;
-            }
-            .form-row {
-                margin: 6px 0 !important;
-                font-size: 10px !important;
-                line-height: 1.2 !important;
-            }
-            .classification-secret {
-                background-color: #dc143c !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-                font-size: 11px !important;
-                padding: 3px 10px !important;
-            }
-            .army-seal {
-                background: #8b4513 !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-                width: 50px !important;
-                height: 50px !important;
-                font-size: 14px !important;
-            }
-            .stamp-area {
-                border: 2px solid #dc143c !important;
-                color: #dc143c !important;
-                -webkit-print-color-adjust: exact;
-                width: 80px !important;
-                height: 80px !important;
-                font-size: 8px !important;
-            }
-            .checkbox {
-                border: 1px solid #8b4513 !important;
-                width: 12px !important;
-                height: 12px !important;
-                font-size: 10px !important;
-            }
-            /* Forcer le contenu des cellules du tableau à rester compact */
-            .table td.form-field {
-                padding: 2px !important;
-                text-align: center !important;
-                font-weight: bold !important;
-            }
-        }signature-area {
-                page-break-inside: avoid;
-                margin-top: 20px !important;
-            }
-            textarea.editable {
-                min-height: 60px !important;
-                font-size: 11px !important;
-                line-height: 1.2 !important;
-            }
-            .form-row {
-                margin: 8px 0 !important;
-                font-size: 11px !important;
-            }
-            .classification-secret {
-                background-color: #dc143c !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-            }
-            .army-seal {
-                background: #8b4513 !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-            }
-            .stamp-area {
-                border: 2px solid #dc143c !important;
-                color: #dc143c !important;
-                -webkit-print-color-adjust: exact;
+                background-color: transparent;
+                border: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="success-message" id="success-msg">
-        ✅ <strong>Rapport envoyé avec succès !</strong> Votre document a été transmis au commandement.
-    </div>
-    
-    <div class="error-message" id="error-msg">
-        ❌ <strong>Erreur lors de l'envoi.</strong> Veuillez vérifier les champs obligatoires.
-    </div>
-
     <div class="controls">
-        <h3>🎛️ CONTRÔLES</h3>
-        <button class="btn-reset" onclick="resetDocument()">🔄 Reset</button>
-        <button class="btn-send" onclick="sendDocument()">📤 Envoyer le Rapport</button>
+        <h3>🎛️ CONTRÔLES D'ÉDITION</h3>
+        <button onclick="window.print()">🖨️ Imprimer/PDF</button>
+        <button onclick="saveDocument()">💾 Sauvegarder</button>
+        <button onclick="resetDocument()">🔄 Réinitialiser</button>
+        <button onclick="fillExample()">📝 Exemple</button>
         <br><br>
-        <small>💡 <strong>Instructions:</strong> Remplissez les zones jaunes puis envoyez le rapport.</small>
+        <small>💡 <strong>Instructions:</strong> Cliquez sur les zones jaunes pour éditer.</small>
     </div>
 
     <div class="document" id="casualties">
         <div class="classification-secret">
-            <span class="editable" contenteditable="true">SECRET - EYES ONLY</span>
+            <span class="editable" contenteditable="true">SECRET - CONFIDENTIEL</span>
         </div>
         
         <div class="header">
             <div class="army-seal">★<br>US</div>
-            <div class="title">CASUALTY REPORT</div>
-            <div class="subtitle">88th Regiment - Battle Damage Assessment</div>
-            <div class="subtitle">APO 403, European Theater</div>
+            <div class="title">RAPPORT DE VICTIMES</div>
+            <div class="subtitle">88ème Régiment - Évaluation des Dommages au Combat</div>
+            <div class="subtitle">APO 403, Théâtre Européen</div>
         </div>
 
         <div class="form-row">
-            <strong>Report Period:</strong> 
-            <span class="form-field" contenteditable="true" id="cas-period">0001 hrs 28 July - 2359 hrs 28 July 1944</span>
+            <strong>Période du rapport :</strong> 
+            <span class="form-field" contenteditable="true" id="cas-period">0001 hrs 28 juillet - 2359 hrs 28 juillet 1944</span>
         </div>
 
         <div class="form-row">
-            <strong>Reporting Unit:</strong> 
-            <span class="form-field" contenteditable="true" id="cas-unit">88th Regiment</span>
-            <strong>Location:</strong> 
-            <span class="form-field" contenteditable="true" id="cas-location">Sainte-Mère-Église Sector</span>
+            <strong>Unité déclarante :</strong> 
+            <span class="form-field" contenteditable="true" id="cas-unit">88ème Régiment</span>
+            <strong>Localisation :</strong> 
+            <span class="form-field" contenteditable="true" id="cas-location">Secteur Sainte-Mère-Église</span>
         </div>
 
         <div class="priority-red">
-            <strong>URGENT STATISTICS</strong><br>
-            Total Casualties Processed: <span class="editable" contenteditable="true" id="cas-total">127</span> personnel
+            <strong>STATISTIQUES URGENTES</strong><br>
+            Total des victimes traitées : <span class="editable" contenteditable="true" id="cas-total">127</span> personnels
         </div>
 
         <table class="table">
             <tr>
-                <th>CATEGORY</th>
-                <th>US FORCES</th>
-                <th>BRITISH</th>
-                <th>FRENCH</th>
-                <th>ENEMY POW</th>
-                <th>CIVILIAN</th>
+                <th>CATÉGORIE</th>
+                <th>FORCES US</th>
+                <th>BRITANNIQUES</th>
+                <th>FRANÇAIS</th>
+                <th>PRISONNIERS</th>
+                <th>CIVILS</th>
                 <th>TOTAL</th>
             </tr>
             <tr>
-                <td><strong>KIA (Killed in Action)</strong></td>
+                <td><strong>TUÉ AU COMBAT</strong></td>
                 <td class="form-field" contenteditable="true" id="kia-us">12</td>
                 <td class="form-field" contenteditable="true" id="kia-brit">3</td>
                 <td class="form-field" contenteditable="true" id="kia-fr">1</td>
@@ -472,7 +290,7 @@
                 <td class="form-field" contenteditable="true" id="kia-total">28</td>
             </tr>
             <tr>
-                <td><strong>WIA (Wounded in Action)</strong></td>
+                <td><strong>BLESSÉ AU COMBAT</strong></td>
                 <td class="form-field" contenteditable="true" id="wia-us">67</td>
                 <td class="form-field" contenteditable="true" id="wia-brit">15</td>
                 <td class="form-field" contenteditable="true" id="wia-fr">2</td>
@@ -481,7 +299,7 @@
                 <td class="form-field" contenteditable="true" id="wia-total">102</td>
             </tr>
             <tr>
-                <td><strong>MIA (Missing in Action)</strong></td>
+                <td><strong>DISPARU AU COMBAT</strong></td>
                 <td class="form-field" contenteditable="true" id="mia-us">3</td>
                 <td class="form-field" contenteditable="true" id="mia-brit">0</td>
                 <td class="form-field" contenteditable="true" id="mia-fr">0</td>
@@ -492,52 +310,52 @@
         </table>
 
         <div class="priority-yellow">
-            <strong>MEDICAL ANALYSIS:</strong><br>
-            <textarea class="editable" id="cas-analysis" placeholder="Analyse médicale des blessures...">Primary causes of casualties:
-• Artillery/Mortar fragments: 45%
-• Small arms fire: 30%
-• Mine explosions: 15%
-• Vehicle accidents: 10%
+            <strong>ANALYSE MÉDICALE :</strong><br>
+            <textarea class="editable" id="cas-analysis" placeholder="Analyse médicale des blessures...">Causes principales des victimes :
+• Éclats d'artillerie/mortier : 45%
+• Tirs d'armes légères : 30%
+• Explosions de mines : 15%
+• Accidents de véhicules : 10%
 
-Survivability rate: 82.4% (improved from last period)
-Average evacuation time: 35 minutes</textarea>
+Taux de survie : 82,4% (amélioration par rapport à la période précédente)
+Temps d'évacuation moyen : 35 minutes</textarea>
         </div>
 
         <div>
-            <strong>EVACUATION STATUS:</strong><br>
+            <strong>STATUT D'ÉVACUATION :</strong><br>
             <div class="form-row">
-                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> To Field Hospital: <span class="editable" contenteditable="true">67</span> patients
+                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> Vers l'hôpital de campagne : <span class="editable" contenteditable="true">67</span> patients
             </div>
             <div class="form-row">
-                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> To Evacuation Hospital: <span class="editable" contenteditable="true">23</span> patients
+                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> Vers l'hôpital d'évacuation : <span class="editable" contenteditable="true">23</span> patients
             </div>
             <div class="form-row">
-                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> To General Hospital (UK): <span class="editable" contenteditable="true">12</span> patients
+                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> Vers l'hôpital général (UK) : <span class="editable" contenteditable="true">12</span> patients
             </div>
             <div class="form-row">
-                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> Returned to Duty: <span class="editable" contenteditable="true">25</span> personnel
+                <span class="checkbox" onclick="toggleCheckbox(this)">☐</span> Retour au service : <span class="editable" contenteditable="true">25</span> personnels
             </div>
         </div>
 
         <div style="margin-top: 30px;">
-            <strong>CRITICAL CASES SUMMARY:</strong><br>
-            <textarea class="editable" id="cas-critical" placeholder="Résumé des cas critiques...">• Sgt. Williams - Multiple fragment wounds, stable after surgery
-• Pvt. Johnson - Severe burns, evacuated to UK for specialized care  
-• Lt. Anderson - Head trauma, conscious but requiring observation
-• Cpl. Martinez - Amputation, prosthetic fitting required</textarea>
+            <strong>RÉSUMÉ DES CAS CRITIQUES :</strong><br>
+            <textarea class="editable" id="cas-critical" placeholder="Résumé des cas critiques...">• Sgt. Williams - Blessures multiples par éclats, stable après chirurgie
+• Soldat Johnson - Brûlures graves, évacué vers UK pour soins spécialisés
+• Lt. Anderson - Traumatisme crânien, conscient mais nécessite surveillance
+• Cpl. Martinez - Amputation, ajustement prothétique requis</textarea>
         </div>
 
         <div class="signature-area">
             <div>
                 <div class="signature-box"></div>
-                <strong><span class="editable" contenteditable="true">2nd Lieutenant Peter J. Parsons</span></strong><br>
-                Medical Officer<br>
-                <span class="editable" contenteditable="true">28 July 1944, 2100 hrs</span>
+                <strong><span class="editable" contenteditable="true">2ème Lieutenant Pierre J. Parsons</span></strong><br>
+                Officier médical<br>
+                <span class="editable" contenteditable="true">28 juillet 1944, 2100 hrs</span>
             </div>
             <div class="stamp-area">
-                CLASSIFIED<br>
-                MEDICAL<br>
-                CORPS
+                CLASSIFIÉ<br>
+                CORPS<br>
+                MÉDICAL
             </div>
         </div>
     </div>
@@ -551,8 +369,34 @@ Average evacuation time: 35 minutes</textarea>
             }
         }
 
+        function saveDocument() {
+            const docTitle = "Rapport_Victimes";
+            const fullHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${docTitle} - 88ème Régiment</title>
+    <style>
+        ${document.querySelector('style').textContent}
+        .controls { display: none; }
+    </style>
+</head>
+<body>
+    ${document.querySelector('.document').outerHTML}
+</body>
+</html>`;
+            
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${docTitle}_${new Date().toISOString().slice(0,10)}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
         function resetDocument() {
-            if (confirm('⚠️ Êtes-vous sûr de vouloir effacer tous les champs ?')) {
+            if (confirm('Êtes-vous sûr de vouloir effacer tous les champs ?')) {
                 document.querySelectorAll('.editable, .form-field').forEach(field => {
                     if (field.tagName === 'TEXTAREA') {
                         field.value = field.placeholder || '';
@@ -565,147 +409,45 @@ Average evacuation time: 35 minutes</textarea>
                 document.querySelectorAll('.checkbox').forEach(checkbox => {
                     checkbox.textContent = '☐';
                 });
-                
-                // Reset to default values
-                document.getElementById('cas-period').textContent = '0001 hrs 28 July - 2359 hrs 28 July 1944';
-                document.getElementById('cas-unit').textContent = '88th Regiment';
-                document.getElementById('cas-location').textContent = 'Sainte-Mère-Église Sector';
-                document.getElementById('cas-total').textContent = '127';
-                
-                hideMessages();
             }
         }
 
-        function sendDocument() {
-            // Vérification des champs obligatoires
-            const requiredFields = ['cas-period', 'cas-unit', 'cas-location', 'cas-total'];
-            let isValid = true;
+        function fillExample() {
+            document.getElementById('cas-period').textContent = '0001 hrs 15 août - 2359 hrs 15 août 1944';
+            document.getElementById('cas-location').textContent = 'Opérations de la Poche de Falaise';
+            document.getElementById('cas-total').textContent = '289';
             
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field.textContent.trim()) {
-                    isValid = false;
-                    field.style.backgroundColor = '#ffcccc';
-                    setTimeout(() => {
-                        field.style.backgroundColor = '#ffffcc';
-                    }, 2000);
-                }
-            });
+            // Remplir les statistiques
+            document.getElementById('kia-us').textContent = '18';
+            document.getElementById('kia-brit').textContent = '5';
+            document.getElementById('kia-fr').textContent = '2';
+            document.getElementById('kia-ger').textContent = '12';
+            document.getElementById('kia-civ').textContent = '6';
+            document.getElementById('kia-total').textContent = '43';
             
-            if (!isValid) {
-                showError('Veuillez remplir tous les champs obligatoires.');
-                return;
-            }
+            document.getElementById('wia-us').textContent = '89';
+            document.getElementById('wia-brit').textContent = '23';
+            document.getElementById('wia-fr').textContent = '4';
+            document.getElementById('wia-ger').textContent = '15';
+            document.getElementById('wia-civ').textContent = '11';
+            document.getElementById('wia-total').textContent = '142';
             
-            // Générer et télécharger le document visuel
-            generateVisualDocument();
-        }
-
-        function generateVisualDocument() {
-            // Cacher les contrôles temporairement
-            const controls = document.querySelector('.controls');
-            const messages = document.querySelectorAll('.success-message, .error-message');
+            document.getElementById('mia-us').textContent = '6';
+            document.getElementById('mia-brit').textContent = '1';
+            document.getElementById('mia-fr').textContent = '0';
+            document.getElementById('mia-ger').textContent = '3';
+            document.getElementById('mia-civ').textContent = '2';
+            document.getElementById('mia-total').textContent = '12';
             
-            controls.style.display = 'none';
-            messages.forEach(msg => msg.style.display = 'none');
+            document.getElementById('cas-analysis').value = 'Combats intenses dans la Poche de Falaise ayant causé une augmentation des victimes :\n• Bombardement d\'artillerie : 55%\n• Tirs de chars/canons antichar : 25%\n• Armes légères : 15%\n• Mines/pièges : 5%\n\nTaux de survie : 78,6% (diminution due à l\'intensité)\nTemps d\'évacuation moyen : 42 minutes (augmentation due à l\'action ennemie)';
             
-            // Nettoyer l'apparence pour l'export
-            const editableFields = document.querySelectorAll('.editable, .form-field');
-            editableFields.forEach(field => {
-                field.style.backgroundColor = 'transparent';
-                field.style.border = 'none';
-                field.style.outline = 'none';
-                field.setAttribute('contenteditable', 'false');
-            });
+            document.getElementById('cas-critical').value = '• Major Thompson - Blessures abdominales graves, chirurgie d\'urgence réussie\n• Sgt. Roberts - Amputations multiples, état stable\n• Cpl. Davis - Brûlures graves sur 40% du corps, évacué vers UK\n• Soldat Miller - Traumatisme crânien avec fracture du crâne, conscient mais critique\n• Lt. Wilson - Blessures thoraciques avec poumon effondré, bonne récupération';
             
-            // Générer le PDF directement avec window.print()
-            const originalTitle = document.title;
-            const period = document.getElementById('cas-period').textContent.replace(/[^\w\s]/gi, '');
-            document.title = `Casualty_Report_${period.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}`;
-            
-            // Ouvrir la boîte de dialogue d'impression (l'utilisateur peut choisir "Enregistrer au format PDF")
-            window.print();
-            
-            // Restaurer l'interface après un délai
-            setTimeout(() => {
-                document.title = originalTitle;
-                controls.style.display = 'block';
-                editableFields.forEach(field => {
-                    field.style.backgroundColor = '#ffffcc';
-                    field.style.borderBottom = '1px solid #8b4513';
-                    field.setAttribute('contenteditable', 'true');
-                });
-                showSuccess();
-            }, 1000);
-        }
-
-        function collectAllData() {
-            return {
-                metadata: {
-                    period: document.getElementById('cas-period').textContent,
-                    unit: document.getElementById('cas-unit').textContent,
-                    location: document.getElementById('cas-location').textContent,
-                    total: document.getElementById('cas-total').textContent,
-                    timestamp: new Date().toISOString()
-                },
-                casualties: {
-                    kia: {
-                        us: document.getElementById('kia-us').textContent,
-                        british: document.getElementById('kia-brit').textContent,
-                        french: document.getElementById('kia-fr').textContent,
-                        enemy: document.getElementById('kia-ger').textContent,
-                        civilian: document.getElementById('kia-civ').textContent,
-                        total: document.getElementById('kia-total').textContent
-                    },
-                    wia: {
-                        us: document.getElementById('wia-us').textContent,
-                        british: document.getElementById('wia-brit').textContent,
-                        french: document.getElementById('wia-fr').textContent,
-                        enemy: document.getElementById('wia-ger').textContent,
-                        civilian: document.getElementById('wia-civ').textContent,
-                        total: document.getElementById('wia-total').textContent
-                    },
-                    mia: {
-                        us: document.getElementById('mia-us').textContent,
-                        british: document.getElementById('mia-brit').textContent,
-                        french: document.getElementById('mia-fr').textContent,
-                        enemy: document.getElementById('mia-ger').textContent,
-                        civilian: document.getElementById('mia-civ').textContent,
-                        total: document.getElementById('mia-total').textContent
-                    }
-                },
-                analysis: document.getElementById('cas-analysis').value,
-                critical: document.getElementById('cas-critical').value,
-                evacuation: {
-                    field_hospital: document.querySelector('.checkbox').textContent,
-                    evacuation_hospital: document.querySelectorAll('.checkbox')[1].textContent,
-                    general_hospital: document.querySelectorAll('.checkbox')[2].textContent,
-                    returned_duty: document.querySelectorAll('.checkbox')[3].textContent
-                }
-            };
-        }
-
-        function showSuccess() {
-            hideMessages();
-            document.getElementById('success-msg').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('success-msg').style.display = 'none';
-            }, 5000);
-        }
-
-        function showError(message) {
-            hideMessages();
-            const errorDiv = document.getElementById('error-msg');
-            errorDiv.innerHTML = `❌ <strong>Erreur:</strong> ${message}`;
-            errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
-        }
-
-        function hideMessages() {
-            document.getElementById('success-msg').style.display = 'none';
-            document.getElementById('error-msg').style.display = 'none';
+            // Cocher quelques cases
+            const checkboxes = document.querySelectorAll('.checkbox');
+            if (checkboxes[0]) checkboxes[0].textContent = '✓';
+            if (checkboxes[1]) checkboxes[1].textContent = '✓';
+            if (checkboxes[3]) checkboxes[3].textContent = '✓';
         }
 
         // Navigation par Tab
